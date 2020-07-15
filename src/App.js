@@ -1,7 +1,8 @@
 import React from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import Spinner from 'react-bootstrap/Spinner';
+import MyComponent from './component/MyComponent';
 function App() {
   return (
     <div className="App">
@@ -21,6 +22,7 @@ function App() {
        
       </header> */
       }
+      <MyComponent />
       <>
         <Spinner animation="border" variant="primary" />
         <Spinner animation="border" variant="secondary" />
