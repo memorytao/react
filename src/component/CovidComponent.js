@@ -14,13 +14,14 @@ class CovidComponent extends React.Component {
 
     this.setState({ isLoading: true })
 
-    fetch('https://intense-sea-88006.herokuapp.com/api/world')
-    // fetch('http://localhost:9999/api/world')
+    fetch('http://intense-sea-88006.herokuapp.com/api/world')
+      // fetch('http://localhost:9999/api/world')
       .then(response => response.json())
       .then(data => {
         this.setState({ countries: data, isLoading: false });
       }
-      );
+      )
+      .catch((error) => console.error(error));
   }
 
   render() {
