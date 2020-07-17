@@ -7,7 +7,6 @@ class MainUI extends React.Component {
 
     render() {
         return (
-
             <Container>
                 <Row>
                     <Col md={8} ms={4} lg={true}>
@@ -21,7 +20,6 @@ class MainUI extends React.Component {
                     </Col>
                 </Row>
             </Container>
-
         )
     }
 }

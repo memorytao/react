@@ -14,13 +14,29 @@ class CovidComponent extends React.Component {
 
     this.setState({ isLoading: true })
 
-    fetch('https://intense-sea-88006.herokuapp.com/api/world')
-      // fetch('http://localhost:9999/api/world')
-      .then(response => response.json())
-      .then(data => {
-        this.setState({ countries: data, isLoading: false });
-      }
-      )
+    const getConfigLocal = 'http://localhost:9999/api/config';
+    const getConfigProd = 'https://intense-sea-88006.herokuapp.co/api/config';
+
+    var callAPIs = '';
+    var API_WORLD = getConfigLocal;
+
+    if ('production' === process.env.NODE_ENV) {
+      API_WORLD = getConfigProd;
+    }
+
+    fetch(API_WORLD)
+      .then((response) => response.text())
+      .then((url) => {
+
+        callAPIs = url;
+        fetch(callAPIs)
+          .then(response => response.json())
+          .then(data => {
+            this.setState({ countries: data, isLoading: false });
+          }
+          )
+          .catch((error) => console.error(error));
+      })
       .catch((error) => console.error(error));
   }
 
@@ -28,40 +44,25 @@ class CovidComponent extends React.Component {
 
     const { countries, isLoading } = this.state;
 
-    console.log('before ', isLoading, ' country', countries)
-
     if (isLoading) {
       return (
         <>
           <Spinner animation="border" variant="primary" />
-          <Spinner animation="border" variant="secondary" />
-          <Spinner animation="border" variant="success" />
-          <Spinner animation="border" variant="danger" />
-          <Spinner animation="border" variant="warning" />
-          <Spinner animation="border" variant="info" />
-          <Spinner animation="border" variant="light" />
-          <Spinner animation="border" variant="dark" />
-          <Spinner animation="grow" variant="primary" />
-          <Spinner animation="grow" variant="secondary" />
-          <Spinner animation="grow" variant="success" />
-          <Spinner animation="grow" variant="danger" />
-          <Spinner animation="grow" variant="warning" />
-          <Spinner animation="grow" variant="info" />
-          <Spinner animation="grow" variant="light" />
-          <Spinner animation="grow" variant="dark" />
         </>
       )
     }
     return (
-      countries.map((country) => (
+
+      countries.map((country, idx) => (
         <Card
-          key={country.country}
+          key={idx}
         >
           <Card.Body>
             <Card.Title>Country : {country.country}</Card.Title>
-            <Card.Text>With supporting text below as a natural lead-in to additional content.</Card.Text>
+            <Card.Text>Cases : {country.cases} </Card.Text>
+            <Card.Subtitle> Deaths: {country.deaths} </Card.Subtitle>
           </Card.Body>
-          <Card.Footer>Footer</Card.Footer>
+          <Card.Footer></Card.Footer>
         </Card>
       ))
     );

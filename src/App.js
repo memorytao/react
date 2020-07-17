@@ -11,7 +11,6 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <div>MODE {process.env.NODE_ENV} | {process.env.PUBLIC_URL} </div>
         <MainUI />
       </div>
     );
