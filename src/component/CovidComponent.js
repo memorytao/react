@@ -15,30 +15,18 @@ class CovidComponent extends React.Component {
 
     this.setState({ isLoading: true })
 
-    const getConfigLocal = 'http://localhost:9999/api/config';
-    const getConfigProd = 'https://intense-sea-88006.herokuapp.co/api/config';
+    var callAPIs = process.env.REACT_APP_GET_WORLD_REPORT_API;
 
-    var callAPIs = '';
-    var API_WORLD = getConfigLocal;
-
-    if ('production' === process.env.NODE_ENV) {
-      API_WORLD = getConfigProd;
-    }
-
-    fetch(API_WORLD)
-      .then((response) => response.text())
-      .then((url) => {
-
-        callAPIs = url;
-        fetch(callAPIs)
-          .then(response => response.json())
-          .then(data => {
-            this.setState({ countries: data, isLoading: false });
-          }
-          )
-          .catch((error) => console.error(error));
-      })
-      .catch((error) => console.error(error));
+    console.log('callAPIs', callAPIs)
+    fetch(callAPIs)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({ countries: data, isLoading: false });
+      }
+      ).catch((err) => {
+        console.log(err)
+      }
+      )
   }
 
   getComponent(countries) {
@@ -88,13 +76,10 @@ class CovidComponent extends React.Component {
     let countryReport = [];
     let getObj = [];
     let newDeck = false;
-
+    console.log(countries)
     if (isLoading) {
       return (
-        <>
-          {/* <Spinner animation="border" variant="primary" /> */}
-          <LinearProgress color="secondary"  />
-        </>
+        <LinearProgress color="secondary" />
       )
     }
 

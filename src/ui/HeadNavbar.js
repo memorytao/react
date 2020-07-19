@@ -1,8 +1,5 @@
 import React from 'react';
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import CovidComponent from '../component/CovidComponent';
 class HeadNavbar extends React.Component {
 
     render() {
@@ -16,7 +13,7 @@ class HeadNavbar extends React.Component {
                         <Nav.Link href="#pricing">Pricing</Nav.Link> */}
                     </Nav>
                     <Form inline>
-                        <FormControl type="text" placeholder="country" className="mr-sm-2" autoComplete/>
+                        <FormControl type="text" placeholder="country" className="mr-sm-2" />
                         <Button variant="outline-info">Search</Button>
                     </Form>
                     {/* <Autocomplete
